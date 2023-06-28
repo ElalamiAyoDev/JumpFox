@@ -14,7 +14,7 @@ public class PlayerMouvement : MonoBehaviour
     {
         moveDir = new Vector3(Input.GetAxis("Horizontal") * moveSpeed,moveDir.y, Input.GetAxis("Vertical") * moveSpeed);
         
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && characterController.isGrounded)
             moveDir.y = jumpForce ;
 
         moveDir.y -= gravity * Time.deltaTime;
