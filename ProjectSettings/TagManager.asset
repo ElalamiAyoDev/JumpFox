@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Coin
+  - Snail
+  - Hurt
+  - cam1
+  - cam3
+  - cam2_1
+  - cam2_2
   layers:
   - Default
   - TransparentFX

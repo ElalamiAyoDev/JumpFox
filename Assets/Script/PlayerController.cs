@@ -1,14 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMouvement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public CharacterController characterController;
     public float moveSpeed;
     public float jumpForce;
     public float gravity;
+    private CharacterController characterController;
     private Vector3 moveDir;
+    private Animator animator;
+    private bool isWalking;
+
+    public void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -20,7 +29,13 @@ public class PlayerMouvement : MonoBehaviour
         moveDir.y -= gravity * Time.deltaTime;
 
         if (moveDir.x != 0 || moveDir.z != 0)
+        {
+            isWalking = true;
             transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(new Vector3(moveDir.x, 0, moveDir.z)), 0.15f);
+        }else
+            isWalking = false;
+
+        animator.SetBool("isWalking", isWalking);
 
         characterController.Move(moveDir * Time.deltaTime);
     }
