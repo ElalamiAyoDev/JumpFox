@@ -11,6 +11,7 @@ public class PlayerCollision : MonoBehaviour
     public GameObject cam3;
     public AudioClip mobDie;
     public AudioClip collectCoin;
+    public AudioClip hitPlayerSound;
     public SkinnedMeshRenderer skinnedMeshRenderer;
     private AudioSource audioSource;
     private bool canInstantiate = true ;
@@ -61,6 +62,7 @@ public class PlayerCollision : MonoBehaviour
             isInvinsible = true;
             PlayerInfo.playerInfo.setHealth(-1);
             iTween.PunchPosition(gameObject, Vector3.back * 5, .5f);
+            audioSource.PlayOneShot(hitPlayerSound);
             StartCoroutine("ResetInvinsible");
         }
         else if (hit.gameObject.tag == "Snail" && canInstantiate)

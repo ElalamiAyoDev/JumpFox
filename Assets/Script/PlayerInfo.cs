@@ -11,7 +11,7 @@ public class PlayerInfo : MonoBehaviour
     public int playerHealth = 3;
     public int nbCoins = 0;
     public Image[] hearts;
-    public TextMeshPro coinText;
+    public Text coinText;
 
     private void Awake()
     {
