@@ -5,12 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Coin
-  - Snail
   - Hurt
   - cam1
   - cam3
   - cam2_1
-  - cam2_2
+  - LvlEnd
+  - cam2
+  - Mobs
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

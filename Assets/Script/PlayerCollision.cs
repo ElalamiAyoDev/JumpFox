@@ -14,6 +14,7 @@ public class PlayerCollision : MonoBehaviour
     public AudioClip hitPlayerSound;
     public SkinnedMeshRenderer skinnedMeshRenderer;
     private AudioSource audioSource;
+    private int nbKilledMobs = 0;
     private bool canInstantiate = true ;
     private bool isInvinsible = false;
 
@@ -26,18 +27,21 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "cam1")
             cam1.SetActive(true);
-        if (other.gameObject.tag == "cam2_1")
-            cam2.SetActive(true);
-        if (other.gameObject.tag == "cam2_2")
+        if (other.gameObject.tag == "cam2")
             cam2.SetActive(true);
         if (other.gameObject.tag == "cam3")
             cam3.SetActive(true);
 
+
+        if(other.gameObject.name == "EndLvl")
+            PlayerInfo.playerInfo.ShowFinalScore(nbKilledMobs);
+
+
         if (other.gameObject.tag == "Coin")
         {
             audioSource.PlayOneShot(collectCoin);
-            GameObject go = Instantiate(pickupEffect,other.transform.position,Quaternion.identity);
-            Destroy(go,0.4f);
+            GameObject effect = Instantiate(pickupEffect,other.transform.position,Quaternion.identity);
+            Destroy(effect,0.4f);
             PlayerInfo.playerInfo.getCoins();
             Destroy(other.gameObject);
         }
@@ -65,12 +69,13 @@ public class PlayerCollision : MonoBehaviour
             audioSource.PlayOneShot(hitPlayerSound);
             StartCoroutine("ResetInvinsible");
         }
-        else if (hit.gameObject.tag == "Snail" && canInstantiate)
+        else if (hit.gameObject.tag == "Mobs" && canInstantiate)
         {
             canInstantiate = false;
+            nbKilledMobs++;
             audioSource.PlayOneShot(mobDie);
-            GameObject go = Instantiate(killMobEffect, hit.gameObject.transform.parent.gameObject.transform.position, Quaternion.identity);
-            Destroy(go, 0.8f);
+            GameObject effect = Instantiate(killMobEffect, hit.gameObject.transform.parent.gameObject.transform.position, Quaternion.identity);
+            Destroy(effect, 0.8f);
             Destroy(hit.gameObject.transform.parent.gameObject);
             StartCoroutine("ResetInstantiate");
         }
