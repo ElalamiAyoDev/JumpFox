@@ -22,11 +22,13 @@ public class PlayerInfo : MonoBehaviour
     public void setHealth(int health)
     {
         playerHealth += health;
-        if(playerHealth > 3)
+        if(playerHealth >= 3)
             playerHealth = 3;
-        if(playerHealth < 0)
+        if(playerHealth <= 0)
+        {
             playerHealth = 0;
-
+            CheckpointMgr.checkpointMgr.Respawn();
+        }
         SetHealthBar();
     }
 

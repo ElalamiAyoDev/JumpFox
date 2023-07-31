@@ -25,6 +25,12 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "cam0")
+        {
+            cam1.SetActive(false);
+            cam2.SetActive(false);
+            cam3.SetActive(false);
+        } 
         if (other.gameObject.tag == "cam1")
             cam1.SetActive(true);
         if (other.gameObject.tag == "cam2")
@@ -69,7 +75,7 @@ public class PlayerCollision : MonoBehaviour
             audioSource.PlayOneShot(hitPlayerSound);
             StartCoroutine("ResetInvinsible");
         }
-        else if (hit.gameObject.tag == "Mobs" && canInstantiate)
+        if (hit.gameObject.tag == "Mobs" && canInstantiate)
         {
             canInstantiate = false;
             nbKilledMobs++;
@@ -79,6 +85,9 @@ public class PlayerCollision : MonoBehaviour
             Destroy(hit.gameObject.transform.parent.gameObject);
             StartCoroutine("ResetInstantiate");
         }
+        if (hit.gameObject.tag == "Death")
+            CheckpointMgr.checkpointMgr.Respawn();
+
     }
 
     IEnumerator ResetInstantiate()

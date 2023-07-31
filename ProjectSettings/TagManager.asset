@@ -8,11 +8,13 @@ TagManager:
   - Hurt
   - cam1
   - cam3
-  - cam2_1
   - LvlEnd
   - cam2
   - Mobs
   - Checkpoint
+  - instantDearh
+  - Death
+  - cam0
   layers:
   - Default
   - TransparentFX
