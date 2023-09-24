@@ -37,7 +37,13 @@ public class CheckpointMgr : MonoBehaviour
 
     public void Respawn()
     {
+        StartCoroutine("RespawnPlayer");
         transform.position = lastPosition;
         PlayerInfo.playerInfo.setHealth(3);
+    }
+
+    IEnumerable RespawnPlayer()
+    {
+        yield return new WaitForSeconds(0.8f);
     }
 }

@@ -15,6 +15,7 @@ TagManager:
   - instantDearh
   - Death
   - cam0
+  - Cage
   layers:
   - Default
   - TransparentFX

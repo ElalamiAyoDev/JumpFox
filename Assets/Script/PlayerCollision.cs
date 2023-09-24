@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
     public GameObject pickupEffect;
     public GameObject killMobEffect;
+    public GameObject coin;
     public GameObject cam1;
     public GameObject cam2;
     public GameObject cam3;
@@ -40,7 +42,7 @@ public class PlayerCollision : MonoBehaviour
 
 
         if(other.gameObject.name == "EndLvl")
-            PlayerInfo.playerInfo.ShowFinalScore(nbKilledMobs);
+            SceneManager.LoadScene(2);
 
 
         if (other.gameObject.tag == "Coin")
@@ -81,13 +83,20 @@ public class PlayerCollision : MonoBehaviour
             nbKilledMobs++;
             audioSource.PlayOneShot(mobDie);
             GameObject effect = Instantiate(killMobEffect, hit.gameObject.transform.parent.gameObject.transform.position, Quaternion.identity);
+            Instantiate(coin, hit.gameObject.transform.parent.gameObject.transform.position + Vector3.forward, Quaternion.identity * Quaternion.Euler(90, 0, 0));
             Destroy(effect, 0.8f);
             Destroy(hit.gameObject.transform.parent.gameObject);
             StartCoroutine("ResetInstantiate");
         }
         if (hit.gameObject.tag == "Death")
-            CheckpointMgr.checkpointMgr.Respawn();
+            StartCoroutine("RespawnPlayer");
 
+    }
+
+    IEnumerator RespawnPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(1);
     }
 
     IEnumerator ResetInstantiate()
